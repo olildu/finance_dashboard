@@ -1,0 +1,496 @@
+{
+    "1": {
+        "balance": 2795,
+        "transactions": [
+            {
+                "reason": "Nescafe Coffee",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-01T02:44:04.477383"
+            },
+            {
+                "reason": "Suhani's Coffee",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-01T02:44:21.879935"
+            },
+            {
+                "reason": "Chips Night",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-01T03:23:20.738259"
+            },
+            {
+                "reason": "Night chips",
+                "amount": 25,
+                "category": "Food & Drinks",
+                "date": "2024-12-01T03:43:28.570892"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-01T06:55:17.212931"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-01T15:24:15.283974"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-01T15:52:22.348315"
+            },
+            {
+                "reason": "Coffee",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-01T22:51:50.818202"
+            },
+            {
+                "reason": "Suhani's Coffee",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-01T22:52:00.132757"
+            }
+        ]
+    },
+    "2": {
+        "balance": 2430,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-02T11:37:18.413194"
+            },
+            {
+                "reason": "",
+                "amount": 35,
+                "category": "Food & Drinks",
+                "date": "2024-12-02T11:48:16.236827"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Cigarettes",
+                "date": "2024-12-02T19:50:33.527441"
+            },
+            {
+                "reason": "Pizza",
+                "amount": 240,
+                "category": "Food & Drinks",
+                "date": "2024-12-02T21:33:07.742508"
+            },
+            {
+                "reason": "Chips Drink",
+                "amount": 60,
+                "category": "Food & Drinks",
+                "date": "2024-12-02T23:02:31.272389"
+            }
+        ]
+    },
+    "3": {
+        "balance": 2250,
+        "transactions": [
+            {
+                "reason": "Adil My Kutti",
+                "amount": 20,
+                "category": "Cigarettes",
+                "date": "2024-12-03T10:04:03.631785"
+            },
+            {
+                "reason": "Chips Pepsi",
+                "amount": 40,
+                "category": "Food & Drinks",
+                "date": "2024-12-03T20:45:21.558180"
+            },
+            {
+                "reason": "Heavens Cafe Pizza",
+                "amount": 120,
+                "category": "Food & Drinks",
+                "date": "2024-12-03T21:18:05.363021"
+            }
+        ]
+    },
+    "4": {
+        "balance": 1645,
+        "transactions": [
+            {
+                "reason": "Early Cab Deposit",
+                "amount": 500,
+                "category": "Travel",
+                "date": "2024-12-04T03:15:36.721750"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-04T13:01:38.193054"
+            },
+            {
+                "reason": "Pepsi",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-04T16:42:14.863857"
+            },
+            {
+                "reason": "",
+                "amount": 30,
+                "category": "Cigarettes",
+                "date": "2024-12-04T18:32:49.572546"
+            },
+            {
+                "reason": "",
+                "amount": 15,
+                "category": "Cigarettes",
+                "date": "2024-12-04T19:55:22.563783"
+            },
+            {
+                "reason": "Coffee",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-04T22:03:04.815479"
+            }
+        ]
+    },
+    "5": {
+        "balance": 1430,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-05T10:01:48.266328"
+            },
+            {
+                "reason": "Print PBL",
+                "amount": 15,
+                "category": "Bill",
+                "date": "2024-12-05T11:12:48.224069"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-05T12:17:46.403435"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-05T12:17:55.639988"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-05T15:36:43.395276"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-05T18:13:24.738796"
+            },
+            {
+                "reason": "Old Monk",
+                "amount": 100,
+                "category": "Food & Drinks",
+                "date": "2024-12-05T18:23:32.084695"
+            },
+            {
+                "reason": "",
+                "amount": 10,
+                "category": "Cigarettes",
+                "date": "2024-12-05T20:00:43.859858"
+            },
+            {
+                "reason": "Coke",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-05T20:01:03.821158"
+            }
+        ]
+    },
+    "6": {
+        "balance": 1360,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Cigarettes",
+                "date": "2024-12-06T10:21:54.287371"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-06T18:00:35.509713"
+            },
+            {
+                "reason": "Chai, Suhani",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-06T22:25:52.532531"
+            }
+        ]
+    },
+    "7": {
+        "balance": 1235,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 25,
+                "category": "Food & Drinks",
+                "date": "2024-12-07T01:06:36.599013"
+            },
+            {
+                "reason": "",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-07T14:57:01.862000"
+            },
+            {
+                "reason": "Chips",
+                "amount": 40,
+                "category": "Food & Drinks",
+                "date": "2024-12-07T19:03:45.397306"
+            },
+            {
+                "reason": "",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-07T22:52:54.677662"
+            }
+        ]
+    },
+    "8": {
+        "balance": 1185,
+        "transactions": [
+            {
+                "reason": "Suhani Me tea",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-08T20:53:40.753551"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-08T21:36:06.982840"
+            }
+        ]
+    },
+    "9": {
+        "balance": 1165,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-09T16:31:53.317345"
+            }
+        ]
+    },
+    "10": {
+        "balance": 1055,
+        "transactions": [
+            {
+                "reason": "Pen",
+                "amount": 20,
+                "category": "Shopping",
+                "date": "2024-12-10T13:55:06.672695"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-10T20:18:34.888334"
+            },
+            {
+                "reason": "Coffee Suhani",
+                "amount": 70,
+                "category": "Food & Drinks",
+                "date": "2024-12-10T22:01:04.527718"
+            }
+        ]
+    },
+    "11": {
+        "balance": 1035,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-11T21:29:28.249965"
+            }
+        ]
+    },
+    "12": {
+        "balance": 960,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-12T16:41:58.332833"
+            },
+            {
+                "reason": "",
+                "amount": 40,
+                "category": "Food & Drinks",
+                "date": "2024-12-12T22:07:47.428784"
+            },
+            {
+                "reason": "",
+                "amount": 15,
+                "category": "Food & Drinks",
+                "date": "2024-12-12T22:07:52.988967"
+            }
+        ]
+    },
+    "13": {
+        "balance": 960,
+        "transactions": []
+    },
+    "14": {
+        "balance": 830,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 80,
+                "category": "Food & Drinks",
+                "date": "2024-12-14T03:50:25.458083"
+            },
+            {
+                "reason": "",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-14T18:52:11.572320"
+            },
+            {
+                "reason": "Cheru 10",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-14T20:57:30.823729"
+            }
+        ]
+    },
+    "15": {
+        "balance": 800,
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 30,
+                "category": "Food & Drinks",
+                "date": "2024-12-15T01:59:51.854937"
+            }
+        ]
+    },
+    "16": {
+        "transactions": [
+            {
+                "reason": "Balaji   Myntra 10",
+                "amount": 50,
+                "category": "Food & Drinks",
+                "date": "2024-12-16T23:55:19.368329"
+            }
+        ]
+    },
+    "17": {
+        "transactions": [
+            {
+                "reason": "Crazy Chef Wrap",
+                "amount": 74,
+                "category": "Food & Drinks",
+                "date": "2024-12-17T01:03:11.344751"
+            },
+            {
+                "reason": "Pepsi",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-17T14:42:51.608603"
+            },
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-17T21:08:45.576199"
+            }
+        ]
+    },
+    "18": {
+        "transactions": [
+            {
+                "reason": "Balaji",
+                "amount": 40,
+                "category": "Food & Drinks",
+                "date": "2024-12-18T07:07:09.047905"
+            },
+            {
+                "reason": "Coffee Tea Suhani 10",
+                "amount": 40,
+                "category": "Food & Drinks",
+                "date": "2024-12-18T18:50:27.622718"
+            }
+        ]
+    },
+    "19": {
+        "transactions": []
+    },
+    "20": {
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 42,
+                "category": "Food & Drinks",
+                "date": "2024-12-20T00:24:44.325071"
+            },
+            {
+                "reason": "Crazy Chef",
+                "amount": 74,
+                "category": "Food & Drinks",
+                "date": "2024-12-20T01:58:24.583054"
+            }
+        ]
+    },
+    "21": {
+        "transactions": [
+            {
+                "reason": "",
+                "amount": 20,
+                "category": "Food & Drinks",
+                "date": "2024-12-21T11:30:08.324943"
+            }
+        ]
+    },
+    "22": {
+        "transactions": [
+            {
+                "reason": "Suhani Me Coffee",
+                "amount": 70,
+                "category": "Food & Drinks",
+                "date": "2024-12-22T00:07:41.601140"
+            },
+            {
+                "reason": "Chai",
+                "amount": 10,
+                "category": "Food & Drinks",
+                "date": "2024-12-22T00:10:06.857766"
+            },
+            {
+                "reason": "Month End Refund",
+                "amount": 353,
+                "category": "Bill",
+                "date": "2024-12-22T19:53:34.282291"
+            }
+        ]
+    },
+    "23": {
+        "transactions": []
+    }
+}
