@@ -1,6 +1,6 @@
 from services.db_config import connection, mf
 
-def calculateFunds():
+def calculateFunds(x):
     cursor = connection.cursor()
     cursor.execute("SELECT fund_name, units, buy_price FROM mutual_funds")
     funds_data = cursor.fetchall()
