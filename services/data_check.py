@@ -2,60 +2,85 @@ from datetime import datetime
 from services.db_config import connection
 
 def go_back_month(month: int, year: int):
+    """Return previous month ID as 'MYYYY' string, e.g. '92025' for Sep 2025."""
     if month == 1:
-        return f"{12}{year-1}"
+        return f"12{year-1}"
     else:
         return f"{month-1}{year}"
 
-def data_check(current_date, user_id: int): 
+
+def data_check(current_date: datetime, user_id: int):
+    """
+    Ensures:
+    1. A month record exists globally in months_table.
+    2. Account details exist for the current user for this month.
+    """
     cursor = connection.cursor()
-    current_year = str(current_date.year)
-    current_month_str = current_date.strftime("%B")
-    combined_id = f"{current_date.month}{current_year}"
+    current_year = current_date.year
+    current_month = current_date.month
+    current_month_name = current_date.strftime("%B")
 
-    cursor.execute("SELECT 1 FROM months_table WHERE id = %s AND user_id = %s", (combined_id, user_id))
-    result = cursor.fetchone()
+    # Global month ID
+    combined_id = f"{current_month}{current_year}"
 
-    if not result:
-        print(f"ID {combined_id} for user {user_id} does not exist. Creating...")
+    # 1️⃣ Ensure the month exists globally
+    cursor.execute(
+        "SELECT 1 FROM months_table WHERE id = %s",
+        (combined_id,)
+    )
+    month_exists = cursor.fetchone()
+
+    if not month_exists:
+        print(f"Creating global month record {combined_id}...")
+        cursor.execute(
+            "INSERT INTO months_table (id, month_year) VALUES (%s, %s)",
+            (combined_id, f"{current_month_name} {current_year}")
+        )
+        connection.commit()
+
+    # 2️⃣ Ensure the user has account_details for this month
+    cursor.execute(
+        "SELECT 1 FROM account_details WHERE m_id = %s AND category_id = %s",
+        (combined_id, user_id)
+    )
+    account_exists = cursor.fetchone()
+
+    if not account_exists:
+        print(f"Creating account_details for user {user_id} for month {combined_id}...")
 
         try:
-            month_to_check = go_back_month(month=current_date.month, year=current_date.year)
-            cursor.execute("SELECT * FROM account_details WHERE m_id = %s", (month_to_check,))
-            account_details = cursor.fetchone()
-            
-            # Assuming account_details schema aligns with indices
-            if account_details:
-                mutual_funds = account_details[2] 
-                savings = account_details[1] + account_details[4] + account_details[3]
+            # Try to copy previous month's data
+            prev_id = go_back_month(current_month, current_year)
+            cursor.execute(
+                "SELECT savings, mutual_funds, variable_expense, monthly_expense_left "
+                "FROM account_details WHERE m_id = %s AND category_id = %s",
+                (prev_id, user_id)
+            )
+            prev_data = cursor.fetchone()
+
+            if prev_data:
+                prev_savings, prev_mutual, prev_variable, prev_left = prev_data
+                savings = prev_savings + prev_variable + prev_left
+                mutual_funds = prev_mutual
             else:
-                raise ValueError("No previous month's data found.")
+                # No previous data, fallback to zero
+                savings = 0
+                mutual_funds = 0
 
-            cursor.execute(
-                "INSERT INTO months_table (id, user_id, month_year) VALUES (%s, %s, %s)",
-                (combined_id, user_id, f"{current_month_str} {current_year}")
-            )
-            cursor.execute(
-                """
-                INSERT INTO account_details (m_id, savings, mutual_funds, variable_expense, monthly_expense_left) 
-                VALUES (%s, %s, %s, 4000.00, 4000.00)
-                """,
-                (combined_id, savings, mutual_funds)
-            )
+        except Exception as e:
+            print(f"Error fetching previous month data: {e}")
+            savings = 0
+            mutual_funds = 0
 
-        except (Exception,):
-            cursor.execute(
-                "INSERT INTO months_table (id, user_id, month_year) VALUES (%s, %s, %s)",
-                (combined_id, user_id, f"{current_month_str} {current_year}")
-            )
-            cursor.execute(
-                """
-                INSERT INTO account_details (m_id, savings, mutual_funds, variable_expense, monthly_expense_left) 
-                VALUES (%s, 0, 0, 4000.00, 4000.00)
-                """,
-                (combined_id,)
-            )
+        # Insert account_details for this user
+        cursor.execute(
+            """
+            INSERT INTO account_details (m_id, category_id, savings, mutual_funds, variable_expense, monthly_expense_left)
+            VALUES (%s, %s, %s, %s, 4000.00, 4000.00)
+            """,
+            (combined_id, user_id, savings, mutual_funds)
+        )
 
         connection.commit()
-    
+
     cursor.close()

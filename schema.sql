@@ -10,27 +10,23 @@ CREATE TABLE
   );
 
 -- Modified months_table to include a reference to the user.
-CREATE TABLE
-  months_table (
-    id VARCHAR(255) PRIMARY KEY,
-    user_id INT NOT NULL,
-    month_year VARCHAR(255) NOT NULL,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id),
-    -- Ensures a user cannot have duplicate entries for the same month and year.
-    CONSTRAINT unique_user_month_year UNIQUE (user_id, month_year)
-  );
+CREATE TABLE months_table (
+  id VARCHAR(255) PRIMARY KEY,
+  month_year VARCHAR(255) NOT NULL
+);
 
 -- This table is implicitly linked to a user via its m_id relationship
 -- with months_table. No changes are needed here.
-CREATE TABLE
-  account_details (
-    m_id VARCHAR(255) PRIMARY KEY,
-    savings DECIMAL(10, 2) NOT NULL,
-    mutual_funds DECIMAL(10, 2) NOT NULL,
-    variable_expense DECIMAL(10, 2) NOT NULL,
-    monthly_expense_left DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (m_id) REFERENCES months_table (id)
-  );
+CREATE TABLE account_details (
+  m_id VARCHAR(255),
+  category_id INT,
+  savings DECIMAL(10, 2) NOT NULL,
+  mutual_funds DECIMAL(10, 2) NOT NULL,
+  variable_expense DECIMAL(10, 2) NOT NULL,
+  monthly_expense_left DECIMAL(10, 2) NOT NULL,
+  PRIMARY KEY (m_id, category_id),
+  FOREIGN KEY (m_id) REFERENCES months_table (id)
+);
 
 -- This table is also implicitly linked to a user via its m_id relationship.
 -- No changes are needed here.
