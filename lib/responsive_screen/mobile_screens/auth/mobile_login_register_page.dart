@@ -36,6 +36,7 @@ class _MobileLoginRegisterPageState extends State<MobileLoginRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: Center(

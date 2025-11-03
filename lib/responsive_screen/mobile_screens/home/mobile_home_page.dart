@@ -35,7 +35,6 @@ class _MobileMainPageState extends State<MobileHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-
       body: Consumer<SimpleProvider>(
         builder: (context, provider, child) {
           return FutureBuilder<Map>(
@@ -57,17 +56,15 @@ class _MobileMainPageState extends State<MobileHomePage> {
                         children: [
                           // title("₹ Total monthlyExpenseLeft"),
                           // balanceWidget(snapshot.data!["monthlyExpenseLeft"], snapshot.data!["spent_today"], snapshot.data!["days_left"]),
-                                    
+
                           Gap(10.h),
-                                    
+
                           SizedBox(
                             width: double.infinity,
-                            height: 40.h,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                title("Ebin Santhosh"),
-                                    
+                                title("Welcome Back\nHello User", size: 20.sp),
                                 ElevatedButton(
                                   onPressed: () {
                                     Navigator.of(context).push(
@@ -75,46 +72,46 @@ class _MobileMainPageState extends State<MobileHomePage> {
                                         builder: (context) => const DebitCreditMethod(),
                                       ),
                                     );
-                                  }, 
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const CircleBorder(),
-                                    padding: EdgeInsets.zero,
-                                    backgroundColor: primaryColor
-                                  ),
-                                  child: const Center(child: Icon(Icons.add_rounded, color: Colors.white,)),
+                                  },
+                                  style: ElevatedButton.styleFrom(shape: const CircleBorder(), padding: EdgeInsets.all(15.sp), backgroundColor: primaryColor),
+                                  child: Center(
+                                      child: Icon(
+                                    Icons.add_rounded,
+                                    color: Colors.white,
+                                    size: 20.sp,
+                                  )),
                                 )
-                                    
                               ],
                             ),
                           ),
-                                    
+
                           Gap(20.h),
-                                    
+
                           totalAssetsWidget(snapshot.data!),
-                                    
+
                           Gap(20.h),
-                                    
+
                           title("Your Portfolio"),
-                                    
+
                           yourPortFolioWidget([monthlyExpenseLeft, savings, variableExpense, mutualFundsTotal]),
-                          
+
                           Gap(20.h),
-                                    
+
                           title("Your Expenses"),
-                          
+
                           Gap(10.h),
-                                    
+
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                             height: 400,
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(20.r)
-                            ),  
-                            child: BarChartSample1(financialData: snapshot.data!, showTitle: false,),
+                            decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(20.r)),
+                            child: BarChartSample1(
+                              financialData: snapshot.data!,
+                              showTitle: false,
+                            ),
                           ),
-                                    
+
                           // summaryWidget(context, snapshot.data!["category_totals"], snapshot.data!["total_expense"], snapshot.data!["category_percentages"]),
                         ],
                       ),

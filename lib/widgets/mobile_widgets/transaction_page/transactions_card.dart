@@ -102,9 +102,7 @@ class TransactionsCardState extends State<TransactionsCard> {
                   decoration: BoxDecoration(
                     color: primaryColor,
                     border: Border.all(
-                      color: currentIndex == index
-                          ? const Color.fromARGB(255, 255, 242, 124)
-                          : const Color.fromARGB(255, 70, 70, 70),
+                      color: currentIndex == index ? const Color.fromARGB(255, 255, 242, 124) : const Color.fromARGB(255, 70, 70, 70),
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(15.r),
@@ -115,28 +113,18 @@ class TransactionsCardState extends State<TransactionsCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                                top: 10.h, bottom: 0, left: 10.w),
+                            padding: EdgeInsets.only(top: 10.h, bottom: 0, left: 10.w),
                             child: Text(
-                              sortedTransactions[widget.requiredIndex][index]
-                                      ["reason"]
-                                  .toString()
-                                  .trim()
-                                  .isEmpty
-                                  ? "No reason provided"
-                                  : sortedTransactions[widget.requiredIndex]
-                                      [index]["reason"],
+                              sortedTransactions[widget.requiredIndex][index]["reason"].toString().trim().isEmpty ? "No reason provided" : sortedTransactions[widget.requiredIndex][index]["reason"],
                               style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                                top: 10.h, bottom: 0, right: 10.w),
+                            padding: EdgeInsets.only(top: 10.h, bottom: 0, right: 10.w),
                             child: Text(
-                              formatDate(sortedTransactions[widget.requiredIndex]
-                                  [index]["date"]),
+                              formatDate(sortedTransactions[widget.requiredIndex][index]["date"]),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 197, 197, 197),
@@ -156,9 +144,7 @@ class TransactionsCardState extends State<TransactionsCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                sortedTransactions[widget.requiredIndex][index]
-                                            ["method"] ==
-                                        "debit"
+                                sortedTransactions[widget.requiredIndex][index]["method"] == "debit"
                                     ? "-${formatIndianSystem(sortedTransactions[widget.requiredIndex][index]["amount"])} ₹"
                                     : "${formatIndianSystem(sortedTransactions[widget.requiredIndex][index]["amount"])} ₹",
                                 style: TextStyle(
@@ -168,10 +154,8 @@ class TransactionsCardState extends State<TransactionsCard> {
                                 ),
                               ),
                               methodCategoryClassWidget(
-                                sortedTransactions[widget.requiredIndex][index]
-                                    ["method"],
-                                sortedTransactions[widget.requiredIndex][index]
-                                    ["category"],
+                                sortedTransactions[widget.requiredIndex][index]["method"],
+                                sortedTransactions[widget.requiredIndex][index]["category"],
                               ),
                             ],
                           ),
@@ -182,7 +166,6 @@ class TransactionsCardState extends State<TransactionsCard> {
                 ),
               ),
             ),
-          
           );
         },
       ),
@@ -190,27 +173,25 @@ class TransactionsCardState extends State<TransactionsCard> {
   }
 }
 
-
 class DataPaser {
   List variableExpense = [];
   List savings = [];
-  List monthlyExpense = []; 
-  List all = []; 
+  List monthlyExpense = [];
+  List all = [];
 
   List<List> parseData(List data) {
-    for (var x in data){  
-      if (x["bracket"] == "monthly-transactions"){
+    for (var x in data) {
+      if (x["bracket"] == "monthly-transactions") {
         monthlyExpense.add(x);
       }
-      if (x["bracket"] == "savings-expense-transactions"){
+      if (x["bracket"] == "savings-expense-transactions") {
         savings.add(x);
       }
-      if (x["bracket"] == "variable-expense-transactions"){
+      if (x["bracket"] == "variable-expense-transactions") {
         variableExpense.add(x);
       }
       all.add(x);
     }
     return [all, monthlyExpense, variableExpense, savings];
   }
-  
 }

@@ -49,8 +49,8 @@ dependencies:
   carousel_slider: ^5.0.0
   fl_chart: ^0.70.0
   video_player: ^2.9.2
-  shared_preferences: ^2.5.3
   dio: ^5.9.0
+  localstorage: ^4.0.1+4
 
 dev_dependencies:
   flutter_test:

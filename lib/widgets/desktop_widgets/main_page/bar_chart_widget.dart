@@ -1,4 +1,3 @@
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +8,7 @@ class BarChartSample1 extends StatefulWidget {
   final Map financialData;
   final bool? showTitle;
 
-  BarChartSample1({
-    super.key,
-    required this.financialData,
-    this.showTitle
-  });
+  BarChartSample1({super.key, required this.financialData, this.showTitle});
 
   List<Color> get availableColors => const <Color>[
         Colors.purple,
@@ -54,16 +49,13 @@ class BarChartSample1State extends State<BarChartSample1> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.showTitle == null
-                        ? 'Expense Chart'
-                        : 'Fixed Expenses',
+                      widget.showTitle == null ? 'Expense Chart' : 'Fixed Expenses',
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-
                     CircleAvatar(
                       radius: 14.r,
                       backgroundColor: const Color.fromARGB(255, 90, 90, 90),
@@ -79,10 +71,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                         },
                       ),
                     ),
-
                   ],
                 ),
-
                 const SizedBox(
                   height: 4,
                 ),
@@ -104,7 +94,6 @@ class BarChartSample1State extends State<BarChartSample1> {
               ],
             ),
           ),
-
         ],
       ),
     );
@@ -126,9 +115,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           toY: isTouched ? y + 1 : y,
           color: isTouched ? widget.touchedBarColor : barColor,
           width: width,
-          borderSide: isTouched
-              ? const BorderSide(color: Colors.grey)
-              : const BorderSide(color: Colors.white, width: 0),
+          borderSide: isTouched ? const BorderSide(color: Colors.grey) : const BorderSide(color: Colors.white, width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             toY: 20,
@@ -140,51 +127,48 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-
-List<BarChartGroupData> showingGroups() => List.generate(6, (i) {
-  switch (i) {
-    case 0:
-      return makeGroupData(
-        0,
-        (((widget.financialData["category_percentages"]["Food & Drinks"] ?? 0).toDouble()) * 22),
-        isTouched: i == touchedIndex,
-      );
-    case 1:
-      return makeGroupData(
-        1,
-        (((widget.financialData["category_percentages"]["Nicotine Gum"] ?? 0).toDouble()) * 22),
-        isTouched: i == touchedIndex,
-      );
-    case 2:
-      return makeGroupData(
-        2,
-        (((widget.financialData["category_percentages"]["Travel"] ?? 0).toDouble()) * 22),
-        isTouched: i == touchedIndex,
-      );
-    case 3:
-      return makeGroupData(
-        3,
-        (((widget.financialData["category_percentages"]["Bill"] ?? 0).toDouble()) * 22),
-        isTouched: i == touchedIndex,
-      );
-    case 4:
-      return makeGroupData(
-        4,
-        (((widget.financialData["category_percentages"]["Shopping"] ?? 0).toDouble()) * 22),
-        isTouched: i == touchedIndex,
-      );
-    case 5:
-      return makeGroupData(
-        5,
-        (((widget.financialData["category_percentages"]["Others"] ?? 0).toDouble()) * 22),
-        isTouched: i == touchedIndex,
-      );
-    default:
-      throw Error();
-  }
-});
-
-
+  List<BarChartGroupData> showingGroups() => List.generate(6, (i) {
+        switch (i) {
+          case 0:
+            return makeGroupData(
+              0,
+              (((widget.financialData["category_percentages"]["Food & Drinks"] ?? 0).toDouble()) * 22),
+              isTouched: i == touchedIndex,
+            );
+          case 1:
+            return makeGroupData(
+              1,
+              (((widget.financialData["category_percentages"]["Laundry"] ?? 0).toDouble()) * 22),
+              isTouched: i == touchedIndex,
+            );
+          case 2:
+            return makeGroupData(
+              2,
+              (((widget.financialData["category_percentages"]["Travel"] ?? 0).toDouble()) * 22),
+              isTouched: i == touchedIndex,
+            );
+          case 3:
+            return makeGroupData(
+              3,
+              (((widget.financialData["category_percentages"]["Bill"] ?? 0).toDouble()) * 22),
+              isTouched: i == touchedIndex,
+            );
+          case 4:
+            return makeGroupData(
+              4,
+              (((widget.financialData["category_percentages"]["Shopping"] ?? 0).toDouble()) * 22),
+              isTouched: i == touchedIndex,
+            );
+          case 5:
+            return makeGroupData(
+              5,
+              (((widget.financialData["category_percentages"]["Others"] ?? 0).toDouble()) * 22),
+              isTouched: i == touchedIndex,
+            );
+          default:
+            throw Error();
+        }
+      });
 
   BarChartData mainBarData() {
     return BarChartData(
@@ -200,7 +184,7 @@ List<BarChartGroupData> showingGroups() => List.generate(6, (i) {
                 item = 'Food & Drinks';
                 break;
               case 1:
-                item = 'Nicotine Gum';
+                item = 'Laundry';
                 break;
               case 2:
                 item = 'Travel';
@@ -239,9 +223,7 @@ List<BarChartGroupData> showingGroups() => List.generate(6, (i) {
         ),
         touchCallback: (FlTouchEvent event, barTouchResponse) {
           setState(() {
-            if (!event.isInterestedForInteractions ||
-                barTouchResponse == null ||
-                barTouchResponse.spot == null) {
+            if (!event.isInterestedForInteractions || barTouchResponse == null || barTouchResponse.spot == null) {
               touchedIndex = -1;
               return;
             }
@@ -290,7 +272,7 @@ List<BarChartGroupData> showingGroups() => List.generate(6, (i) {
         text = const Text('F&D', style: style);
         break;
       case 1:
-        text = const Text('NG', style: style);
+        text = const Text('LD', style: style);
         break;
       case 2:
         text = const Text('Tr', style: style);

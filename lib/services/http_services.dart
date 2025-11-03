@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 class HttpServices {
   late Dio _dio;
   final TokenManager _tokenManager = TokenManager();
-  static const String endpoint = "http://127.0.0.1:8000/";
+
+  // static const String endpoint = "/";
+  static const String endpoint = "http://127.0.0.1:9000/";
 
   HttpServices() {
     _dio = Dio(BaseOptions(baseUrl: endpoint));
@@ -44,8 +46,7 @@ class HttpServices {
                 refreshToken: oldRefreshToken,
               );
 
-              e.requestOptions.headers['Authorization'] =
-                  'Bearer $newAccessToken';
+              e.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
               final retryResponse = await _dio.fetch(e.requestOptions);
               return handler.resolve(retryResponse);
             } catch (_) {
@@ -65,11 +66,7 @@ class HttpServices {
     try {
       final response = await _dio.post(
         'login',
-        data: {
-          'username': username,
-          'password': password,
-          'email': 'user@example.com'
-        },
+        data: {'username': username, 'password': password, 'email': 'user@example.com'},
       );
 
       await _tokenManager.saveTokens(
@@ -94,8 +91,7 @@ class HttpServices {
     }
   }
 
-  Future<Map<String, dynamic>> register(
-      String username, String email, String password) async {
+  Future<Map<String, dynamic>> register(String username, String email, String password) async {
     try {
       await _dio.post(
         'register',
@@ -130,75 +126,41 @@ class HttpServices {
     return response.data;
   }
 
-  Future<void> debitTransaction(
-      String amount, String reason, String category, int index) async {
-    String encodedCategory = Uri.encodeComponent(category);
+  Future<void> debitTransaction(String amount, String reason, String category, int index) async {
     if (index == 3) {
       await mutualFundTransaction(amount, category, "debit", reason);
       return;
     }
-    await _dio.get("debit", queryParameters: {
-      "amount": amount,
-      "reason": reason,
-      "category": encodedCategory,
-      "area": backendAreaRoute[index.toString()]
-    });
-    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false)
-        .increment();
+    await _dio.get("debit", queryParameters: {"amount": amount, "reason": reason, "category": category, "area": backendAreaRoute[index.toString()]});
+    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false).increment();
   }
 
-  Future<void> creditTransaction(
-      String amount, String reason, String category, int index) async {
-    String encodedCategory = Uri.encodeComponent(category);
+  Future<void> creditTransaction(String amount, String reason, String category, int index) async {
     if (index == 3) {
       await mutualFundTransaction(amount, category, "credit", reason);
       return;
     }
-    await _dio.get("credit", queryParameters: {
-      "amount": amount,
-      "reason": reason,
-      "category": encodedCategory,
-      "area": backendAreaRoute[index.toString()]
-    });
-    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false)
-        .increment();
+    await _dio.get("credit", queryParameters: {"amount": amount, "reason": reason, "category": category, "area": backendAreaRoute[index.toString()]});
+    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false).increment();
   }
 
-  Future<void> mutualFundTransaction(
-      String amount, String fundName, String method, String units) async {
-    String encodedFundName = Uri.encodeComponent(fundName);
-    await _dio.get("mf-transaction", queryParameters: {
-      "amount": amount,
-      "fund_name": encodedFundName,
-      "method": method,
-      "units": units
-    });
-    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false)
-        .increment();
+  Future<void> mutualFundTransaction(String amount, String fundName, String method, String units) async {
+    await _dio.get("mf-transaction", queryParameters: {"amount": amount, "fund_name": fundName, "method": method, "units": units});
+    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false).increment();
   }
 
-  Future<void> deleteTransaction(
-      String id, String amount, String bracket, String mId, String method) async {
-    await _dio.get("deleteTransaction", queryParameters: {
-      "id": id,
-      "amount": amount,
-      "bracket": bracket,
-      "m_id": mId,
-      "method": method
-    });
-    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false)
-        .increment();
+  Future<void> deleteTransaction(String id, String amount, String bracket, String mId, String method) async {
+    await _dio.get("deleteTransaction", queryParameters: {"id": id, "amount": amount, "bracket": bracket, "m_id": mId, "method": method});
+    Provider.of<SimpleProvider>(navigatorkey.currentContext!, listen: false).increment();
   }
 
   Future<Map> getTransactions(String month, String year) async {
-    final response = await _dio.get("getTransactions",
-        queryParameters: {"month": month, "year": year});
+    final response = await _dio.get("getTransactions", queryParameters: {"month": month, "year": year});
     return response.data;
   }
 
   Future<List> getChoices(String amount) async {
-    final response =
-        await _dio.get("getChoices", queryParameters: {"amount": amount});
+    final response = await _dio.get("getChoices", queryParameters: {"amount": amount});
     return response.data;
   }
 }

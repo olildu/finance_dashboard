@@ -17,22 +17,25 @@ Widget methodCategoryClassWidget(String method, String category) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if(categoriesIcon[method] != null )...[
-              if (method == "credit")...[
+            if (categoriesIcon[method] != null) ...[
+              if (method == "credit") ...[
                 Transform.rotate(
-                  angle: 72.3, 
-                  child: Icon(categoriesIcon[method], color: Colors.white,)
-                ),
+                    angle: 72.3,
+                    child: Icon(
+                      categoriesIcon[method],
+                      color: Colors.white,
+                    )),
               ],
-              if (method == "debit")...[
-                Icon(categoriesIcon[method], color: Colors.white,),
+              if (method == "debit") ...[
+                Icon(
+                  categoriesIcon[method],
+                  color: Colors.white,
+                ),
               ],
               Gap(10.w),
             ],
-                
             Text(
-              method
-                  .replaceFirstMapped(RegExp(r'^\w'), (Match match) => match.group(0)!.toUpperCase()),
+              method.replaceFirstMapped(RegExp(r'^\w'), (Match match) => match.group(0)!.toUpperCase()),
               style: TextStyle(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.normal,
@@ -42,9 +45,7 @@ Widget methodCategoryClassWidget(String method, String category) {
           ],
         ),
       ),
-
       Gap(10.w),
-
       Container(
         padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
         decoration: BoxDecoration(
@@ -54,18 +55,16 @@ Widget methodCategoryClassWidget(String method, String category) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if(categoriesIcon[category] != null )...[
-              Icon(categoriesIcon[category], color: Colors.white,),
+            if (categoriesIcon[category] != null) ...[
+              Icon(
+                categoriesIcon[category],
+                color: Colors.white,
+              ),
               Gap(10.w),
             ],
-                
             Text(
               category,
-              style: TextStyle(
-                fontSize: 15.sp,
-                fontWeight: FontWeight.normal,
-                color: Colors.white
-              ),
+              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.normal, color: Colors.white),
             ),
           ],
         ),

@@ -1,36 +1,35 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localstorage/localstorage.dart';
 
 class TokenManager {
-  Future<SharedPreferences> get _prefs async => await SharedPreferences.getInstance();
+  final LocalStorage _storage = LocalStorage('token_storage');
 
   Future<void> saveTokens({
     required String accessToken,
     required String refreshToken,
   }) async {
-    final prefs = await _prefs;
-    await prefs.setString('access_token', accessToken);
-    await prefs.setString('refresh_token', refreshToken);
+    await _storage.ready;
+    _storage.setItem('access_token', accessToken);
+    _storage.setItem('refresh_token', refreshToken);
   }
 
   Future<String?> getAccessToken() async {
-    final prefs = await _prefs;
-    return prefs.getString('access_token');
+    await _storage.ready;
+    return _storage.getItem('access_token');
   }
 
   Future<String?> getRefreshToken() async {
-    final prefs = await _prefs;
-    return prefs.getString('refresh_token');
+    await _storage.ready;
+    return _storage.getItem('refresh_token');
   }
 
   Future<bool> hasValidRefreshToken() async {
-    final prefs = await _prefs;
-    final token = prefs.getString('refresh_token');
+    final token = await getRefreshToken();
     return token != null && token.isNotEmpty;
   }
 
   Future<void> deleteTokens() async {
-    final prefs = await _prefs;
-    await prefs.remove('access_token');
-    await prefs.remove('refresh_token');
+    await _storage.ready;
+    _storage.deleteItem('access_token');
+    _storage.deleteItem('refresh_token');
   }
 }
