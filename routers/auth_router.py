@@ -1,33 +1,31 @@
 import psycopg2.errors
-from fastapi import APIRouter, HTTPException, status, Depends, Body
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel, EmailStr
 from jose import JWTError, jwt
 
-from services.db_config import connection
+from services.db_config import get_db
 from models.auth_models import UserCreate, Token, RefreshRequest
-from services.auth import get_password_hash, create_access_token, create_refresh_token, verify_password, SECRET_KEY, ALGORITHM   
+from services.auth import (
+    get_password_hash, create_access_token, create_refresh_token, 
+    verify_password, SECRET_KEY, ALGORITHM
+)
 
 router = APIRouter()
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
-async def register_user(user: UserCreate):
+async def register_user(user: UserCreate, cursor=Depends(get_db)):
     hashed_password = get_password_hash(user.password)
     try:
-        cursor = connection.cursor()
         cursor.execute(
             "INSERT INTO users (username, email, password_hash) VALUES (%s, %s, %s)",
             (user.username, user.email, hashed_password)
         )
-        connection.commit()
-        cursor.close()
     except psycopg2.errors.UniqueViolation:
-        connection.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Username or email already registered.",
         )
     except Exception as e:
-        connection.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e),
@@ -35,14 +33,11 @@ async def register_user(user: UserCreate):
     return {"message": "User registered successfully."}
 
 @router.post("/login", response_model=Token)
-async def login_for_access_token(form_data: UserCreate):
+async def login_for_access_token(form_data: UserCreate, cursor=Depends(get_db)):
     try:
-        cursor = connection.cursor()
         cursor.execute("SELECT user_id, password_hash FROM users WHERE username = %s", (form_data.username,))
         user_data = cursor.fetchone()
-        cursor.close()
     except Exception as e:
-        connection.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e),

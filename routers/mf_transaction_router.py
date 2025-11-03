@@ -1,17 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException
-from services.db_config import connection
+from services.db_config import get_db
 from services.auth import get_current_user
 
 router = APIRouter()
 
 @router.get("/mf-transaction")
-async def mf_transaction(amount: str, fund_name: str, method: str, units: str, user_id: int = Depends(get_current_user)):
-    cursor = connection.cursor()
+async def mf_transaction(amount: str, fund_name: str, method: str, units: str, 
+                         user_id: int = Depends(get_current_user),
+                         cursor=Depends(get_db)):
     try: 
         amount_value = float(amount)
         if method == "debit":
             amount_value = -amount_value
-
 
         cursor.execute(
             """
@@ -23,10 +23,6 @@ async def mf_transaction(amount: str, fund_name: str, method: str, units: str, u
             """,
             (user_id, fund_name, units, amount_value)
         )
-
-        connection.commit()
-        cursor.close()
+        return {"message": "MF transaction successful"}
     except Exception as e:
-        connection.rollback()
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
-        
