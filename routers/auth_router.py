@@ -32,10 +32,13 @@ async def register_user(user: UserCreate, cursor=Depends(get_db)):
         )
     return {"message": "User registered successfully."}
 
-@router.post("/login", response_model=Token)
+@router.post("/login")
 async def login_for_access_token(form_data: UserCreate, cursor=Depends(get_db)):
     try:
-        cursor.execute("SELECT user_id, password_hash FROM users WHERE username = %s", (form_data.username,))
+        cursor.execute(
+            "SELECT user_id, password_hash FROM users WHERE username = %s",
+            (form_data.username,)
+        )
         user_data = cursor.fetchone()
     except Exception as e:
         raise HTTPException(
@@ -49,37 +52,42 @@ async def login_for_access_token(form_data: UserCreate, cursor=Depends(get_db)):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     user_id = user_data[0]
-    access_token = create_access_token(data={"sub": str(user_id)})
+
+    access_token = create_access_token(data={"sub": str(user_id)}, cursor=cursor)
     refresh_token = create_refresh_token(data={"sub": str(user_id)})
-    
+
     return {
-        "access_token": access_token, 
+        "access_token": access_token,
         "refresh_token": refresh_token,
         "token_type": "bearer"
     }
 
+
 @router.post("/refresh")
-async def refresh_access_token(body: RefreshRequest):
+async def refresh_access_token(body: RefreshRequest, cursor=Depends(get_db)):
     refresh_token = body.refresh_token
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Invalid refresh token",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    
+
     try:
         payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
         if payload.get("type") != "refresh":
             raise credentials_exception
+
         user_id = payload.get("sub")
         if user_id is None:
             raise credentials_exception
+
     except JWTError:
         raise credentials_exception
- 
-    new_access_token = create_access_token(data={"sub": user_id})
+
+    new_access_token = create_access_token(data={"sub": user_id}, cursor=cursor)
+
     return {
         "access_token": new_access_token,
         "token_type": "bearer"
