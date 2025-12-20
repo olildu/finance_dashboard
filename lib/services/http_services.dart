@@ -9,8 +9,8 @@ class HttpServices {
   late Dio _dio;
   final TokenManager _tokenManager = TokenManager();
 
-  // static const String endpoint = "/";
-  static const String endpoint = "http://127.0.0.1:9000/";
+  static const String endpoint = "/";
+  // static const String endpoint = "http://127.0.0.1:9000/";
 
   HttpServices() {
     _dio = Dio(BaseOptions(baseUrl: endpoint));

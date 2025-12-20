@@ -30,4 +30,6 @@ int mutualFundsTotal = 0;
 int variableExpense = 0;
 int savings = 0;
 
+late String username;
+
 bool fetchedData = false;

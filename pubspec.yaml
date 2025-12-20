@@ -51,6 +51,7 @@ dependencies:
   video_player: ^2.9.2
   dio: ^5.9.0
   localstorage: ^4.0.1+4
+  icons_flutter: ^0.0.5
 
 dev_dependencies:
   flutter_test:

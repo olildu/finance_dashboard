@@ -1,3 +1,4 @@
+import 'package:finance_dashboard/responsive_screen/mobile_screens/home/new_mobile_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_dashboard/services/token_services.dart';
@@ -31,7 +32,7 @@ final GoRouter _router = GoRouter(
       path: "/",
       pageBuilder: (context, state) => const CupertinoPage(
         child: ScreenDecider(
-          mobilePage: MobileHomePage(),
+          mobilePage: NewMobileHomePage(),
           desktopPage: DesktopHomePage(),
         ),
       ),

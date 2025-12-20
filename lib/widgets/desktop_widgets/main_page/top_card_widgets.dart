@@ -203,6 +203,8 @@ class _SlidableBankDetailsWidgetState extends State<SlidableBankDetailsWidget> {
               );
             }).toList(),
           ),
+       
+       
         ],
       ),
     );
