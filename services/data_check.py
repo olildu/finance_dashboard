@@ -64,7 +64,7 @@ def data_check(current_date: datetime, user_id: int):
         cursor.execute(
             """
             INSERT INTO account_details (m_id, user_id, savings, mutual_funds, variable_expense, monthly_expense_left)
-            VALUES (%s, %s, %s, %s, 4000.00, 4000.00)
+            VALUES (%s, %s, %s, %s, 00.00, 4000.00)
             """,
             (combined_id, user_id, savings, mutual_funds)
         )

@@ -4,8 +4,8 @@ import psycopg2.extras
 
 connection = psycopg2.connect(
     host="localhost",
-    user="postgres", 
-    password="9612", 
+    user="ebinsanthosh", 
+    password="root", 
     database="finance_dashboard"
 )
 
