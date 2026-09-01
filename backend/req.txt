@@ -1,11 +1,13 @@
 fastapi
 uvicorn
-mftool
-rapidfuzz
-python-multipart
-deprecated
 psycopg2-binary
 python-jose[cryptography]
+PyJWT
 passlib[bcrypt]
 bcrypt==4.0.1
 pydantic[email]
+rapidfuzz
+apscheduler
+pytest
+pytest-asyncio
+httpx
