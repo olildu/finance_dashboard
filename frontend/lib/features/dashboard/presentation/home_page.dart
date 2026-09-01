@@ -6,8 +6,27 @@ import 'package:finance_dashboard/features/credit/presentation/credit_balance_wi
 import 'package:finance_dashboard/core/theme/colors.dart';
 
 /// HomePage displays the complete dashboard with accounts, budgets, credit, and transactions
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // Trigger the composed load once the widget mounts — without this the
+    // dashboard renders with no data at all, since DashboardProvider only
+    // reflects its sub-providers' state once something has actually called
+    // load() on them.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<DashboardProvider>().load();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +47,6 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Placeholder text
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Text(
-                            'TODO: Dashboard home screen',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ),
-                      ),
-
                       // Month-End Check Section
                       if (dashboardProvider.monthEndCheck != null)
                         _buildMonthEndCheckSection(

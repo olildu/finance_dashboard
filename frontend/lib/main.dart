@@ -1,4 +1,3 @@
-import 'package:finance_dashboard/responsive_screen/mobile_screens/home/new_mobile_home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,8 +27,6 @@ import 'package:finance_dashboard/features/transactions/presentation/transaction
 import 'package:finance_dashboard/features/transactions/presentation/transaction_list_page.dart';
 import 'package:finance_dashboard/providers/data_provider.dart';
 import 'package:finance_dashboard/providers/transaction_card_provider.dart';
-import 'package:finance_dashboard/responsive_screen/screen_decider.dart';
-import 'package:finance_dashboard/responsive_screen/desktop_screens/desktop_home_page.dart';
 import 'package:finance_dashboard/responsive_screen/mobile_screens/debit_credit/mobile_monthly_expense_catergories_page.dart';
 
 void main() {
@@ -146,14 +143,23 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(
               create: (_) => BudgetsProvider(budgetsApi: budgetsApi),
             ),
+            // Note: the four ChangeNotifierProviders above are singletons for the
+            // lifetime of the app, so their identity never changes between
+            // `update` calls — DashboardProvider is built ONCE and reused, never
+            // recreated on every notifyListeners() from a child provider (that
+            // would silently drop its own _isLoading/_errorMessage state and
+            // re-subscribe every Consumer on every child notification).
             ChangeNotifierProxyProvider4<AccountsProvider, BudgetsProvider, CreditProvider, TransactionsProvider, DashboardProvider>(
-              create: (_) => DashboardProvider(
-                accountsProvider: AccountsProvider(accountsApi: accountsApi),
-                budgetsProvider: BudgetsProvider(budgetsApi: budgetsApi),
-                creditProvider: CreditProvider(creditApi: creditApi),
-                transactionsProvider: TransactionsProvider(transactionsApi: transactionsApi),
+              // The four providers above are already mounted in this same list,
+              // so `context.read` here picks up those exact singleton instances.
+              create: (context) => DashboardProvider(
+                accountsProvider: context.read<AccountsProvider>(),
+                budgetsProvider: context.read<BudgetsProvider>(),
+                creditProvider: context.read<CreditProvider>(),
+                transactionsProvider: context.read<TransactionsProvider>(),
               ),
               update: (_, accountsProvider, budgetsProvider, creditProvider, transactionsProvider, previous) =>
+                  previous ??
                   DashboardProvider(
                     accountsProvider: accountsProvider,
                     budgetsProvider: budgetsProvider,
