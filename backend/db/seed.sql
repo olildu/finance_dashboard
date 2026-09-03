@@ -13,7 +13,8 @@ INSERT INTO budget_envelopes (name, monthly_amount, account_id) VALUES
   ('Rent', 17000.00, 3),
   ('Electricity', 100.00, 3),
   ('PhoneInternet', 300.00, 3),
-  ('Misc', 5000.00, 1);
+  ('Misc', 5000.00, 3),
+  ('Savings', 13800.00, 3);
 
 -- Categories
 INSERT INTO categories (code, display_name, envelope_id, is_active) VALUES
@@ -23,4 +24,5 @@ INSERT INTO categories (code, display_name, envelope_id, is_active) VALUES
   ('phone_internet', 'Phone & Internet', 5, true),
   ('travel', 'Travel', 2, true),
   ('party_outside', 'Party/Dining Out', 2, true),
-  ('misc', 'Miscellaneous', 6, true);
+  ('misc', 'Miscellaneous', 6, true),
+  ('savings', 'Savings', 7, true);
