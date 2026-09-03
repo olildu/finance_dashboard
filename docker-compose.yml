@@ -18,8 +18,6 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-      args:
-        FLUTTER_IMAGE_PLATFORM: ${FLUTTER_IMAGE_PLATFORM:-}
     depends_on:
       db:
         condition: service_healthy
@@ -28,6 +26,6 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SALARY_TOTAL: ${SALARY_TOTAL:-46200}
     ports:
-      - "8001:8001"
+      - "8001:8000"
 volumes:
   db_data:
