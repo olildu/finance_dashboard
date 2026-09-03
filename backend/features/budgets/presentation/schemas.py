@@ -7,7 +7,7 @@ Response models for category budget status including pace and burn-rate metrics.
 from datetime import date
 from decimal import Decimal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
 
 
 class CategoryStatus(BaseModel):
@@ -37,10 +37,12 @@ class CategoryStatus(BaseModel):
         description="Projected date when budget will run out (if burn rate continues); None if burn_rate is 0",
     )
 
-    class Config:
-        """Pydantic config for Decimal serialization."""
-
-        json_encoders = {Decimal: lambda v: float(v)}
+    @field_serializer(
+        "budget", "spent", "remaining", "allowance_per_day", "burn_rate_per_day", when_used="json"
+    )
+    def serialize_decimal(self, value: Decimal) -> float:
+        """Serialize Decimal fields as float for JSON."""
+        return float(value)
 
 
 class BudgetsStatusResponse(BaseModel):
