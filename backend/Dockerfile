@@ -2,7 +2,9 @@
 # NOTE: This Dockerfile's build context is the REPO ROOT, not backend/.
 # It COPYs both backend/ and frontend/ with paths relative to repo root.
 
-FROM ghcr.io/cirruslabs/flutter:stable AS frontend-build
+# NOTE: pinned to linux/amd64 — the arm64 build of this image ships a
+# corrupted/empty flutter launcher script (0 bytes) at /sdks/flutter/bin/flutter.
+FROM --platform=linux/amd64 ghcr.io/cirruslabs/flutter:stable AS frontend-build
 WORKDIR /app/frontend
 COPY frontend/pubspec.* .
 RUN flutter pub get
