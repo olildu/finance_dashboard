@@ -18,6 +18,8 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+      args:
+        FLUTTER_IMAGE_PLATFORM: ${FLUTTER_IMAGE_PLATFORM:-}
     depends_on:
       db:
         condition: service_healthy
