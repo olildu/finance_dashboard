@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_dashboard/features/budgets/business/budgets_provider.dart';
 import 'package:finance_dashboard/features/budgets/presentation/category_pace_card.dart';
+import 'package:finance_dashboard/core/theme/colors.dart';
+import 'package:finance_dashboard/core/widgets/responsive_layout.dart';
 
 /// BudgetsPage displays the budget dashboard with all categories
 class BudgetsPage extends StatefulWidget {
-  const BudgetsPage({Key? key}) : super(key: key);
+  const BudgetsPage({super.key});
 
   @override
   State<BudgetsPage> createState() => _BudgetsPageState();
@@ -24,8 +26,11 @@ class _BudgetsPageState extends State<BudgetsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: const Text('Budget Overview'),
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
         elevation: 0,
       ),
       body: Consumer<BudgetsProvider>(
@@ -40,15 +45,11 @@ class _BudgetsPageState extends State<BudgetsPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 48,
-                  ),
+                  Icon(Icons.error_outline, color: errorColor, size: 48),
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'Error Loading Budgets',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 8),
                   Padding(
@@ -56,7 +57,7 @@ class _BudgetsPageState extends State<BudgetsPage> {
                     child: Text(
                       errorMessage,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: TextStyle(color: mutedTextColor),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -74,9 +75,7 @@ class _BudgetsPageState extends State<BudgetsPage> {
 
           // Show loading indicator
           if (isLoading && categories.isEmpty) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator(color: highlightColor));
           }
 
           // Show empty state if no categories
@@ -85,22 +84,16 @@ class _BudgetsPageState extends State<BudgetsPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.wallet_outlined,
-                    size: 48,
-                    color: Colors.grey[400],
-                  ),
+                  Icon(Icons.wallet_outlined, size: 48, color: mutedTextColor),
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'No Budgets Available',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Set up your budgets to get started',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey[400],
-                        ),
+                    style: TextStyle(color: mutedTextColor),
                   ),
                 ],
               ),
@@ -110,12 +103,24 @@ class _BudgetsPageState extends State<BudgetsPage> {
           // Display the list of budget categories
           return RefreshIndicator(
             onRefresh: () => budgetsProvider.load(forceRefresh: true),
-            child: ListView.builder(
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                return CategoryPaceCard(status: category);
-              },
+            backgroundColor: primaryColor,
+            color: highlightColor,
+            child: ResponsiveLayout(
+              mobile: ListView.builder(
+                itemCount: categories.length,
+                itemBuilder: (context, index) => CategoryPaceCard(status: categories[index]),
+              ),
+              desktop: GridView.builder(
+                padding: const EdgeInsets.all(16),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 1.6,
+                ),
+                itemCount: categories.length,
+                itemBuilder: (context, index) => CategoryPaceCard(status: categories[index]),
+              ),
             ),
           );
         },

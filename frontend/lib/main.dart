@@ -16,6 +16,8 @@ import 'package:finance_dashboard/features/auth/presentation/login_register_page
 import 'package:finance_dashboard/features/budgets/business/budgets_provider.dart';
 import 'package:finance_dashboard/features/budgets/data/budgets_api.dart';
 import 'package:finance_dashboard/features/budgets/presentation/budgets_page.dart';
+import 'package:finance_dashboard/features/categories/business/categories_provider.dart';
+import 'package:finance_dashboard/features/categories/data/categories_api.dart';
 import 'package:finance_dashboard/features/credit/business/credit_provider.dart';
 import 'package:finance_dashboard/features/credit/data/credit_api.dart';
 import 'package:finance_dashboard/features/credit/presentation/credit_balance_widget.dart';
@@ -120,6 +122,7 @@ class MyApp extends StatelessWidget {
         final transactionsApi = TransactionsApi(apiClient.dio);
         final creditApi = CreditApi(apiClient.dio);
         final budgetsApi = BudgetsApi(apiClient.dio);
+        final categoriesApi = CategoriesApi(apiClient.dio);
 
         return MultiProvider(
           providers: [
@@ -142,6 +145,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => BudgetsProvider(budgetsApi: budgetsApi),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => CategoriesProvider(categoriesApi: categoriesApi),
             ),
             // Note: the four ChangeNotifierProviders above are singletons for the
             // lifetime of the app, so their identity never changes between

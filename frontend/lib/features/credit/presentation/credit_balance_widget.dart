@@ -2,166 +2,115 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_dashboard/features/credit/business/credit_provider.dart';
 import 'package:finance_dashboard/core/theme/colors.dart';
+import 'package:finance_dashboard/core/theme/spacing.dart';
+import 'package:finance_dashboard/core/theme/text_styles.dart';
+import 'package:finance_dashboard/core/widgets/responsive_layout.dart';
 
-/// CreditBalanceWidget displays the current credit balance
+/// CreditBalanceWidget displays the current credit balance as a hero card,
+/// matching the dashboard's stat-card visual language.
 class CreditBalanceWidget extends StatelessWidget {
-  const CreditBalanceWidget({Key? key}) : super(key: key);
+  const CreditBalanceWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CreditProvider>(
-      builder: (context, creditProvider, _) {
-        final balance = creditProvider.balance;
-        final isLoading = creditProvider.isLoading;
-        final errorMessage = creditProvider.errorMessage;
+    return Container(
+      color: backgroundColor,
+      child: Consumer<CreditProvider>(
+        builder: (context, creditProvider, _) {
+          final balance = creditProvider.balance;
+          final isLoading = creditProvider.isLoading;
+          final errorMessage = creditProvider.errorMessage;
 
-        if (errorMessage != null) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 48,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Error',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    errorMessage,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
+          if (errorMessage != null) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.error_outline, color: errorColor, size: 48),
+                    const SizedBox(height: 16),
+                    const Text('Error', style: TextStyle(color: Colors.white, fontSize: 18)),
+                    const SizedBox(height: 8),
+                    Text(errorMessage, textAlign: TextAlign.center, style: TextStyle(color: mutedTextColor)),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
+            );
+          }
 
-        if (balance == null) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (isLoading)
-                    const CircularProgressIndicator()
-                  else
-                    const Text('No balance data available'),
-                ],
-              ),
-            ),
-          );
-        }
+          if (balance == null) {
+            return Center(
+              child: isLoading
+                  ? CircularProgressIndicator(color: highlightColor)
+                  : Text('No balance data available', style: TextStyle(color: mutedTextColor)),
+            );
+          }
 
-        final hasDebt = balance > 0;
+          final hasDebt = balance > 0;
 
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                // Balance Card
-                Semantics(
-                  button: false,
-                  label: 'Credit balance information',
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(24.0),
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: hasDebt
-                          ? Border.all(color: Colors.red.withOpacity(0.5))
-                          : null,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Credit Balance',
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                color: Colors.grey[400],
-                                fontSize: 12,
-                                letterSpacing: 0.5,
-                              ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          '\$${balance.toStringAsFixed(2)}',
-                          style:
-                              Theme.of(context).textTheme.displaySmall?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: hasDebt ? Colors.red[300] : Colors.green[300],
-                                  ),
-                        ),
-                        const SizedBox(height: 16),
-                        if (hasDebt)
-                          Semantics(
-                            label: 'Outstanding debt warning',
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.warning_rounded,
-                                  color: Colors.orange,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    'Outstanding debt',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: Colors.orange[300],
-                                        ),
-                                  ),
-                                ),
-                              ],
+          return Center(
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: ResponsiveLayout.isDesktop(context) ? 480 : double.infinity),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Semantics(
+                    label: 'Credit balance information',
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(24.0),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(radiusHero),
+                        border: hasDebt ? Border.all(color: errorColor.withOpacity(0.5)) : null,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Credit Balance', style: AppTextStyles.sectionLabel),
+                          const SizedBox(height: 12),
+                          Text(
+                            '₹${balance.toStringAsFixed(2)}',
+                            style: AppTextStyles.cardNumber.copyWith(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: hasDebt ? errorColor : successColor,
                             ),
-                          )
-                        else
+                          ),
+                          const SizedBox(height: 16),
                           Semantics(
-                            label: 'No outstanding debt',
+                            label: hasDebt ? 'Outstanding debt warning' : 'No outstanding debt',
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.check_circle_rounded,
-                                  color: Colors.green,
+                                Icon(
+                                  hasDebt ? Icons.warning_rounded : Icons.check_circle_rounded,
+                                  color: hasDebt ? Colors.orange : successColor,
                                   size: 18,
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
-                                    'No outstanding debt',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: Colors.green[300],
-                                        ),
+                                    hasDebt ? 'Outstanding debt' : 'No outstanding debt',
+                                    style: TextStyle(
+                                      color: hasDebt ? Colors.orange[300] : successColor,
+                                      fontSize: 13,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:finance_dashboard/core/theme/colors.dart';
+import 'package:finance_dashboard/core/theme/spacing.dart';
 
 /// CategoryPaceCard displays budget pace information for a single category
 class CategoryPaceCard extends StatelessWidget {
@@ -11,9 +12,9 @@ class CategoryPaceCard extends StatelessWidget {
   }) : super(key: key);
 
   String _formatCurrency(dynamic value) {
-    if (value == null) return '\$0.00';
+    if (value == null) return '₹0.00';
     final num = double.tryParse(value.toString()) ?? 0.0;
-    return '\$${num.toStringAsFixed(2)}';
+    return '₹${num.toStringAsFixed(2)}';
   }
 
   String _formatMetric(dynamic value) {
@@ -31,13 +32,13 @@ class CategoryPaceCard extends StatelessWidget {
 
   Color _getProgressColor(double progress) {
     if (progress > 1.0) {
-      return Colors.red[400] ?? Colors.red;
+      return errorColor;
     } else if (progress > 0.75) {
       return Colors.orange[400] ?? Colors.orange;
     } else if (progress > 0.5) {
-      return Colors.yellow[600] ?? Colors.yellow;
+      return highlightColor;
     }
-    return Colors.green[400] ?? Colors.green;
+    return successColor;
   }
 
   @override
@@ -59,9 +60,9 @@ class CategoryPaceCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: primaryColor,
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(radiusCard),
           border: Border.all(
-            color: progress > 1.0 ? Colors.red.withOpacity(0.3) : Colors.transparent,
+            color: progress > 1.0 ? errorColor.withOpacity(0.4) : Colors.transparent,
           ),
         ),
         padding: const EdgeInsets.all(16.0),
@@ -89,13 +90,13 @@ class CategoryPaceCard extends StatelessWidget {
                     Text(
                       'Spent:',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[400],
+                            color: mutedTextColor,
                           ),
                     ),
                     Text(
                       '$spent / $budget',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[200],
+                            color: Colors.white70,
                             fontWeight: FontWeight.w600,
                           ),
                     ),
@@ -123,13 +124,13 @@ class CategoryPaceCard extends StatelessWidget {
                 Text(
                   'Remaining:',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[400],
+                        color: mutedTextColor,
                       ),
                 ),
                 Text(
                   remaining,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: progress > 1.0 ? Colors.red[300] : Colors.green[300],
+                        color: progress > 1.0 ? errorColor : successColor,
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -207,17 +208,17 @@ class CategoryPaceCard extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
+                      color: errorColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(
-                        color: Colors.red.withOpacity(0.3),
+                        color: errorColor.withOpacity(0.3),
                       ),
                     ),
                     child: Row(
                       children: [
                         Icon(
                           Icons.warning_rounded,
-                          color: Colors.red[300],
+                          color: errorColor,
                           size: 16,
                         ),
                         const SizedBox(width: 8),
@@ -225,7 +226,7 @@ class CategoryPaceCard extends StatelessWidget {
                           child: Text(
                             'May runout on $projectedRunoutDate',
                             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                  color: Colors.red[300],
+                                  color: errorColor,
                                 ),
                           ),
                         ),
@@ -265,7 +266,7 @@ class _MetricTile extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: Colors.grey[400],
+                  color: mutedTextColor,
                 ),
             textAlign: TextAlign.center,
           ),
@@ -273,7 +274,7 @@ class _MetricTile extends StatelessWidget {
           Text(
             value,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[100],
+                  color: Colors.white70,
                   fontWeight: FontWeight.w600,
                 ),
             textAlign: TextAlign.center,

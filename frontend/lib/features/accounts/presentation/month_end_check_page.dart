@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_dashboard/features/accounts/business/accounts_provider.dart';
 import 'package:finance_dashboard/core/theme/colors.dart';
+import 'package:finance_dashboard/core/theme/spacing.dart';
 
 /// MonthEndCheckPage displays a summary of accounts and month-end check data
 class MonthEndCheckPage extends StatefulWidget {
@@ -35,8 +36,9 @@ class _MonthEndCheckPageState extends State<MonthEndCheckPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Month End Check'),
-        backgroundColor: primaryColor,
+        backgroundColor: backgroundColor,
         foregroundColor: Colors.white,
+        elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -51,8 +53,8 @@ class _MonthEndCheckPageState extends State<MonthEndCheckPage> {
         builder: (context, accountsProvider, child) {
           // Show loading indicator
           if (accountsProvider.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: CircularProgressIndicator(color: highlightColor),
             );
           }
 
@@ -74,8 +76,8 @@ class _MonthEndCheckPageState extends State<MonthEndCheckPage> {
                     Text(
                       accountsProvider.errorMessage!,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: mutedTextColor,
                         fontSize: 16,
                       ),
                     ),
@@ -135,7 +137,7 @@ class _MonthEndCheckPageState extends State<MonthEndCheckPage> {
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: secondaryColor,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(radiusCard),
                     ),
                     child: const Center(
                       child: Text(
@@ -190,7 +192,7 @@ class _MonthEndCheckPageState extends State<MonthEndCheckPage> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: secondaryColor,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(radiusCard),
         border: Border(
           left: BorderSide(
             color: color,
@@ -230,7 +232,7 @@ class _MonthEndCheckPageState extends State<MonthEndCheckPage> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: secondaryColor,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(radiusCard),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

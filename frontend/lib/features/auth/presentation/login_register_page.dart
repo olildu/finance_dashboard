@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_dashboard/core/theme/colors.dart';
+import 'package:finance_dashboard/core/theme/spacing.dart';
 import 'package:finance_dashboard/features/auth/business/auth_provider.dart';
 
 class LoginRegisterPage extends StatefulWidget {
-  const LoginRegisterPage({Key? key}) : super(key: key);
+  const LoginRegisterPage({super.key});
 
   @override
   State<LoginRegisterPage> createState() => _LoginRegisterPageState();
@@ -92,6 +94,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
         _usernameController.clear();
         _passwordController.clear();
         _emailController.clear();
+        context.go('/');
       }
     } catch (e) {
       // Error is handled by the provider and displayed via the error widget
@@ -129,6 +132,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
         _usernameController.clear();
         _emailController.clear();
         _passwordController.clear();
+        context.go('/');
       }
     } catch (e) {
       // Error is handled by the provider and displayed via the error widget
@@ -173,7 +177,9 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_isRegisterMode ? 'Register' : 'Login'),
-        backgroundColor: primaryColor,
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
       ),
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -201,13 +207,13 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.1),
-                        border: Border.all(color: Colors.red),
-                        borderRadius: BorderRadius.circular(4),
+                        color: errorColor.withOpacity(0.1),
+                        border: Border.all(color: errorColor),
+                        borderRadius: BorderRadius.circular(radiusInput),
                       ),
                       child: Text(
                         authProvider.currentError!,
-                        style: const TextStyle(color: Colors.red),
+                        style: TextStyle(color: errorColor),
                       ),
                     );
                   }
@@ -220,11 +226,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                 decoration: InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(radiusInput),
                   ),
                   filled: true,
                   fillColor: secondaryColor,
-                  labelStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: mutedTextColor),
                 ),
                 style: const TextStyle(color: Colors.white),
                 enabled: !_isLoading,
@@ -237,11 +243,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                   decoration: InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(radiusInput),
                     ),
                     filled: true,
                     fillColor: secondaryColor,
-                    labelStyle: const TextStyle(color: Colors.grey),
+                    labelStyle: TextStyle(color: mutedTextColor),
                   ),
                   style: const TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
@@ -256,11 +262,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(radiusInput),
                   ),
                   filled: true,
                   fillColor: secondaryColor,
-                  labelStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: mutedTextColor),
                 ),
                 style: const TextStyle(color: Colors.white),
                 enabled: !_isLoading,
@@ -273,8 +279,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                     : (_isRegisterMode ? _handleRegister : _handleLogin),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: Colors.blue,
-                  disabledBackgroundColor: Colors.blue.withOpacity(0.5),
+                  backgroundColor: primaryColor,
+                  disabledBackgroundColor: primaryColor.withOpacity(0.5),
+                  foregroundColor: highlightColor,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radiusCard)),
                 ),
                 child: _isLoading
                     ? const SizedBox(
@@ -288,8 +297,8 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                       )
                     : Text(
                         _isRegisterMode ? 'Register' : 'Login',
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: highlightColor,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -304,7 +313,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                       ? 'Already have an account? Login'
                       : 'Don\'t have an account? Register',
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: highlightColor,
                     fontSize: 14,
                   ),
                 ),
