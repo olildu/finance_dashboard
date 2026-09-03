@@ -2,9 +2,14 @@
 # NOTE: This Dockerfile's build context is the REPO ROOT, not backend/.
 # It COPYs both backend/ and frontend/ with paths relative to repo root.
 
-# NOTE: pinned to linux/amd64 — the arm64 build of this image ships a
-# corrupted/empty flutter launcher script (0 bytes) at /sdks/flutter/bin/flutter.
-FROM --platform=linux/amd64 ghcr.io/cirruslabs/flutter:stable AS frontend-build
+# FLUTTER_IMAGE_PLATFORM: on some arm64 hosts (e.g. Docker Desktop on Apple
+# Silicon) the arm64 build of this image ships a corrupted/empty flutter
+# launcher script (0 bytes) at /sdks/flutter/bin/flutter, so those hosts need
+# --build-arg FLUTTER_IMAGE_PLATFORM=linux/amd64. On native arm64 Linux hosts
+# (e.g. an ARM cloud VM), leave this unset — forcing amd64 there means running
+# the Dart toolchain under QEMU emulation, which segfaults.
+ARG FLUTTER_IMAGE_PLATFORM=
+FROM --platform=${FLUTTER_IMAGE_PLATFORM} ghcr.io/cirruslabs/flutter:stable AS frontend-build
 WORKDIR /app/frontend
 COPY frontend/pubspec.* .
 RUN flutter pub get
