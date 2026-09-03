@@ -26,6 +26,6 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SALARY_TOTAL: ${SALARY_TOTAL:-46200}
     ports:
-      - "8000:8000"
+      - "8001:8001"
 volumes:
   db_data:
