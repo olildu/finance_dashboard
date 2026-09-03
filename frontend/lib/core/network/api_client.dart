@@ -7,8 +7,10 @@ class ApiClient {
   late Dio _dio;
   final TokenManager _tokenManager = TokenManager();
 
-  static const String endpoint = "/";
-  // static const String endpoint = "http://127.0.0.1:9000/";
+  static const String endpoint = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: "/",
+  );
 
   ApiClient() {
     _dio = Dio(BaseOptions(baseUrl: endpoint));

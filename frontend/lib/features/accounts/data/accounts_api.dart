@@ -11,7 +11,7 @@ class AccountsApi {
   /// Throws an exception on failure
   Future<List<Map<String, dynamic>>> getAccounts() async {
     try {
-      final response = await dio.get('/accounts');
+      final response = await dio.get('accounts');
       final data = response.data;
 
       // Ensure response is a list
@@ -35,7 +35,7 @@ class AccountsApi {
   /// Throws an exception on failure
   Future<Map<String, dynamic>> getMonthEndCheck() async {
     try {
-      final response = await dio.get('/accounts/month-end-check');
+      final response = await dio.get('accounts/month-end-check');
       final data = response.data;
 
       if (data is Map) {

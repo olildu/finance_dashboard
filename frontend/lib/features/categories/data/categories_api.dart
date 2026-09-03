@@ -12,7 +12,7 @@ class CategoriesApi {
   /// Throws an exception on failure
   Future<List<Map<String, dynamic>>> getCategories() async {
     try {
-      final response = await dio.get('/categories');
+      final response = await dio.get('categories');
       final data = response.data;
 
       // Backend returns {"categories": [...]}

@@ -15,7 +15,7 @@ class RolloverApi {
   /// Throws an exception on failure
   Future<Map<String, dynamic>> triggerCheck() async {
     try {
-      final response = await dio.post('/rollover/run-check');
+      final response = await dio.post('rollover/run-check');
       return response.data as Map<String, dynamic>;
     } catch (e) {
       rethrow;

@@ -12,7 +12,7 @@ class AuthApi {
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {
       final response = await dio.post(
-        '/auth/login',
+        'auth/login',
         data: {
           'username': username,
           'password': password,
@@ -35,7 +35,7 @@ class AuthApi {
   ) async {
     try {
       final response = await dio.post(
-        '/auth/register',
+        'auth/register',
         data: {
           'username': username,
           'email': email,
@@ -55,7 +55,7 @@ class AuthApi {
   Future<Map<String, dynamic>> refresh(String refreshToken) async {
     try {
       final response = await dio.post(
-        '/auth/refresh',
+        'auth/refresh',
         data: {
           'refresh_token': refreshToken,
         },

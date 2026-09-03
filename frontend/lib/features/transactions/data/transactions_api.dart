@@ -21,7 +21,7 @@ class TransactionsApi {
   }) async {
     try {
       final response = await dio.post(
-        '/transactions',
+        'transactions',
         data: {
           'category_code': categoryCode,
           'amount': amount,
@@ -40,7 +40,7 @@ class TransactionsApi {
   /// Throws an exception on failure
   Future<List<Map<String, dynamic>>> getTransactions() async {
     try {
-      final response = await dio.get('/transactions');
+      final response = await dio.get('transactions');
       final data = response.data;
       // Backend returns TransactionListResponse: {"transactions": [...]}
       if (data is Map && data['transactions'] is List) {
@@ -60,7 +60,7 @@ class TransactionsApi {
   /// Throws an exception on failure
   Future<bool> deleteTransaction(int transactionId) async {
     try {
-      await dio.delete('/transactions/$transactionId');
+      await dio.delete('transactions/$transactionId');
       return true;
     } on DioException catch (e) {
       throw Exception('Failed to delete transaction: ${e.message}');

@@ -11,7 +11,7 @@ class CreditApi {
   /// Throws an exception on failure
   Future<Map<String, dynamic>> getBalance() async {
     try {
-      final response = await dio.get('/credit/balance');
+      final response = await dio.get('credit/balance');
       return response.data as Map<String, dynamic>;
     } catch (e) {
       rethrow;
@@ -24,7 +24,7 @@ class CreditApi {
   /// Throws an exception on failure
   Future<Map<String, dynamic>> getHistory() async {
     try {
-      final response = await dio.get('/credit/history');
+      final response = await dio.get('credit/history');
       return response.data as Map<String, dynamic>;
     } catch (e) {
       rethrow;

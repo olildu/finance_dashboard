@@ -12,7 +12,7 @@ class BudgetsApi {
   /// days_left, allowance_per_day, burn_rate_per_day, projected_runout_date
   /// Throws an exception on failure
   Future<Map<String, dynamic>> getStatus() async {
-    final response = await dio.get('/budgets/status');
+    final response = await dio.get('budgets/status');
     return response.data as Map<String, dynamic>;
   }
 }

@@ -1,0 +1,41 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "finance_dashboard (Chrome)",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "frontend",
+            "deviceId": "chrome",
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define=API_BASE_URL=http://localhost:8000/"
+            ]
+        },
+        {
+            "name": "finance_dashboard (macOS)",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "frontend",
+            "deviceId": "macos",
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define=API_BASE_URL=http://localhost:8000/"
+            ]
+        },
+        {
+            "name": "finance_dashboard (Profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "cwd": "frontend",
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define=API_BASE_URL=http://localhost:8000/"
+            ] 
+        }
+    ]
+}
