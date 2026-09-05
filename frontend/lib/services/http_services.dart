@@ -35,7 +35,7 @@ class HttpServices {
               }
 
               final response = await Dio().post(
-                '${endpoint}refresh',
+                '${endpoint}auth/refresh',
                 data: {'refresh_token': oldRefreshToken},
               );
 
@@ -116,7 +116,7 @@ class HttpServices {
 
   Future<void> _logout() async {
     await _tokenManager.deleteTokens();
-    navigatorkey.currentContext?.go('/login');
+    navigatorkey.currentContext?.go('/auth');
   }
 
   // --- FINANCE API CALLS ---
